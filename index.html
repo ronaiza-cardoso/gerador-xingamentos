@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <title>GERADOR DE XINGAMENTOS</title>
+</head>
+
+<style>
+    :root {
+        --primary: #14222b;
+        --secondary: #21a1f1;
+        --border-color: #3d5465;
+    }
+
+    * {
+        background-color: var(--primary);
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+    }
+
+    html,
+    body {
+        height: 100vh;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .container {
+        width: 50%;
+        height: 50%;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        padding: 1rem;
+    }
+
+    .content {
+        padding: 1rem;
+        min-height: 80%;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .footer {
+        border-top: 1px solid var(--border-color);
+        padding-top: 1rem;
+
+        justify-content: space-around;
+    }
+
+    .footer button {
+        border: none;
+        color: var(--secondary);
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+    }
+
+    button svg {
+        margin-right: 0.5rem;
+    }
+
+    .toast {
+        background: #132025;
+        color: rgb(255, 255, 255);
+        width: 100px;
+        height: 60px;
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        border-radius: 15px;
+        border: 1px solid var(--border-color);
+        opacity: 0;
+    }
+
+    .toast.fadein {
+        opacity: 1;
+        animation: fadein 4ms;
+    }
+
+    .toast.fadeout {
+        opacity: 0;
+        animation: fadeout 4ms;
+    }
+
+    @keyframes fadein {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeout {
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+        }
+    }
+</style>
+
+<body>
+    <main class="main center">
+        <div class="container">
+            <div class="content center">
+                <p id="content" onclick="copyIt()"></p>
+            </div>
+            <footer class="footer center">
+                <button type="button" onclick="getRamdomItem()">RELOAD</button>
+
+                <button type="button" onclick="shareIt()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#21a1f1" preserveAspectRatio="xMidYMid meet"
+                        height="1em" width="1em" viewBox="0 0 40 40">
+                        <g>
+                            <path
+                                d="m31.5 11.7c1.3-0.8 2.2-2 2.7-3.4-1.4 0.7-2.7 1.2-4 1.4-1.1-1.2-2.6-1.9-4.4-1.9-1.7 0-3.2 0.6-4.4 1.8-1.2 1.2-1.8 2.7-1.8 4.4 0 0.5 0.1 0.9 0.2 1.3-5.1-0.1-9.4-2.3-12.7-6.4-0.6 1-0.9 2.1-0.9 3.1 0 2.2 1 3.9 2.8 5.2-1.1-0.1-2-0.4-2.8-0.8 0 1.5 0.5 2.8 1.4 4 0.9 1.1 2.1 1.8 3.5 2.1-0.5 0.1-1 0.2-1.6 0.2-0.5 0-0.9 0-1.1-0.1 0.4 1.2 1.1 2.3 2.1 3 1.1 0.8 2.3 1.2 3.6 1.3-2.2 1.7-4.7 2.6-7.6 2.6-0.7 0-1.2 0-1.5-0.1 2.8 1.9 6 2.8 9.5 2.8 3.5 0 6.7-0.9 9.4-2.7 2.8-1.8 4.8-4.1 6.1-6.7 1.3-2.6 1.9-5.3 1.9-8.1v-0.8c1.3-0.9 2.3-2 3.1-3.2-1.1 0.5-2.3 0.8-3.5 1z" />
+                        </g>
+                    </svg>
+                    COMPARTILHE
+                </button>
+            </footer>
+        </div>
+
+        <div class="toast center" id="toast">
+            Copiado!
+        </div>
+    </main>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YMBSW8KBR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-6YMBSW8KBR');
+    </script>
+</body>
+
+<script>
+    const xingamentos = [
+        'saco de vacilo',
+        'bife de rato',
+        'saco de lixo de peruca',
+        'geladinho de xorume',
+        'bafo de bunda',
+        'metralhadora de bosta',
+        'sofá de zona',
+        'saco de bosta',
+        'filhote de lombriga',
+        'vai coçar o cu com serrote'
+    ]
+
+    let currentItem
+
+    function getRamdomItem() {
+        const content = document.getElementById('content')
+        content.innerText = currentItem = xingamentos[Math.floor(Math.random() * xingamentos.length)]
+    }
+
+    function shareIt() {
+        window.location.assign(`http://twitter.com/share?text=gerador de xingamentos: ${currentItem}  &hashtags=xingamentos`)
+    }
+
+    function copyIt() {
+        const el = document.createElement('textarea');
+        el.value = currentItem
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        const selected =
+            document.getSelection().rangeCount > 0
+                ? document.getSelection().getRangeAt(0)
+                : false;
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        if (selected) {
+            document.getSelection().removeAllRanges();
+            document.getSelection().addRange(selected);
+        }
+
+        const toast = document.getElementById('toast')
+        toast.classList.add('fadein')
+
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                toast.classList.remove('fadein')
+                toast.classList.add('fadeout')
+                resolve()
+            }, 500)
+        }).finally(() => {
+            toast.classList.remove('fadein')
+            toast.classList.remove('fadeout')
+        })
+    }
+
+    getRamdomItem()
+
+</script>
+
+</html>
