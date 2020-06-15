@@ -75,6 +75,30 @@
         cursor: pointer;
     }
 
+    #content {
+        -webkit-user-select: all;
+        user-select: all;
+        display: block;
+        padding: 20px;
+        border: 2px dashed var(--border-color);
+        text-align: left;
+        font-family: inherit;
+        overflow: auto;
+    }
+
+    #content::focus {
+        border: 2px dashed #31808c;
+        outline: none;
+        animation: select 100ms step-end forwards;
+    }
+
+    @keyframes select {
+        to {
+            -webkit-user-select: text;
+            user-select: text;
+        }
+    }
+
     .footer {
         border-top: 1px solid var(--border-color);
         padding-top: 1rem;
@@ -142,7 +166,7 @@
     <main class="main center">
         <div class="container">
             <div class="content center">
-                <p id="content" onclick="copyIt()"></p>
+                <code id="content" onclick="copyIt()"></code>
             </div>
             <footer class="footer center">
                 <button type="button" onclick="getRamdomItem()">RELOAD</button>
